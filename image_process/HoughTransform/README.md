@@ -1,5 +1,5 @@
 # HoughTransform
-implementation of hough transform
+implementation of hough transform for circle detection
 
 
 # dynamic_test_demo
