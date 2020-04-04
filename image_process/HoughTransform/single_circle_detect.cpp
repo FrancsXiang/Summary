@@ -1,3 +1,8 @@
+/*
+	author:Franc_zi
+	timestamp:2020_04_04
+	refered_paper:广义hough变换_黎自强(链接: https://pan.baidu.com/s/1aAfC9KLVNK4mknqWws6lng 提取码: 39n4)	
+*/
 #include <iostream>
 #include <vector>
 #include <cstdio>
