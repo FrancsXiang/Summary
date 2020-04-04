@@ -11,7 +11,8 @@
 using namespace std;
 typedef pair<int,int> PII;
 // pramameters
-double tf,nc,td,tk,tl,te,lbd,mc,tm;
+int cnt;
+double tf,nc,td,tk,tl,te,lbd,mc,mt;
 vector<PII> v;
 double random_uniform() {
 	static long int seed = rand() % 1048576;
@@ -86,12 +87,15 @@ int* pre_process() {
 }
 
 bool is_noise(PII p,int* img) {
+	#ifdef debug
+	cout << 1 << endl;
+	#endif
 	bool flag = true;
 	int acc1,acc2;
 	int off_set[4][8] = {{2,3,2,3,1,4,1,4},{1,2,3,4,0,1,0,1},
 						{2,3,1,2,1,4,0,3},{1,2,1,2,0,3,0,3}};
-	int[5] dx = {-2,-1,0,1,2};
-	int[5] dy = {-2,-1,0,1,2};
+	int dx[5] = {-2,-1,0,1,2};
+	int dy[5] = {-2,-1,0,1,2};
 	for(int i=1;i<4;i++) {
 		for(int j=1;j<4;j++) {
 			int y = p.first + dy[i];
@@ -106,16 +110,16 @@ bool is_noise(PII p,int* img) {
 	if(flag) return flag;
 	for(int k=0;k<4;k++) {
 		acc1 = acc2 = 0;
-		for(int i=off_set[i][0];i<=off_set[i][1];i++) {
-			for(int j=off_set[i][2];j<=off_set[i][3];j++) {
+		for(int i=off_set[k][0];i<=off_set[k][1];i++) {
+			for(int j=off_set[k][2];j<=off_set[k][3];j++) {
 				int y = p.first + dy[i];
 				int x = p.second + dx[j];
 				if(x<0||x>=MAXN||y<0||y>=MAXN) continue;
 				acc1 += img[y*MAXN+x];
 			}
 		}
-		for(int i=off_set[i][4];i<=off_set[i][5];i++) {
-			for(int j=off_set[i][6];j<=off_set[i][7];j++) {
+		for(int i=off_set[k][4];i<=off_set[k][5];i++) {
+			for(int j=off_set[k][6];j<=off_set[k][7];j++) {
 				int y = p.first + dy[i];
 				int x = p.second + dx[j];
 				if(x<0||x>=MAXN||y<0||y>=MAXN) continue;
@@ -135,6 +139,9 @@ inline double coef(int cnt,int i,int j) {
 }
 
 bool slope_test(PII p,int* img,int slope) {
+	#ifdef debug
+	cout << 2 << endl;
+	#endif
 	double param[4],a;
 	memset(param,0,sizeof(param));
 	int dx[3] = {-1,0,1};
@@ -154,6 +161,9 @@ bool slope_test(PII p,int* img,int slope) {
 	else return false;
 }
 bool sides_split_test(PII p,PII p_m,int k,int* img) {
+	#ifdef debug
+	cout << 3 << endl;
+	#endif
 	int l0,l1,l2;
 	double direct;
 	l0 = l1 = l2 = 0;
@@ -174,7 +184,10 @@ bool sides_split_test(PII p,PII p_m,int k,int* img) {
 	else return false;
 }
 
-bool edge_test(PII p1,PII p2,PII p3,double& a,double& b,doulbe& r) {
+bool edge_test(PII p1,PII p2,PII p3,double& a,double& b,double& r) {
+	#ifdef debug
+	cout << 4 << endl;
+	#endif
 	double x1,y1,x2,y2,x3,y3,dist;
 	y1 = p1.first;x1 = p2.second;
 	y2 = p2.first;x2 = p2.second;
@@ -193,9 +206,9 @@ bool edge_test(PII p1,PII p2,PII p3,double& a,double& b,doulbe& r) {
 		if(dist<low||dist>high||fabs(sqrt(dist)-r)>=te) continue;
 		mc++;
 	}
-	tm = 2 * M_PI * r * lbd;
-	if(mc > tm) return true;
-	else return false;
+	mt = 2 * M_PI * r * lbd;
+	if(mc > mt) return false;
+	else return true;
 }
 
 void single_circle_detect(int* img) {
@@ -211,13 +224,15 @@ void single_circle_detect(int* img) {
 			k1 = (v[i].first-v[j].first) / (v[i].second - v[j].second);
 			k2 = - 1.0 / k1;
 			for(int z=0;z<v.size();z++) {
+				cnt++;
+				cout << a << " " << b << " " << r << " " << cnt << endl;
 				if(v[z] != p3) {
 					pi.second = v[z].second;
 					pi.first = k2 * (p3.second-v[z].second) + p3.first;
 					if(pi.first<0||pi.first>=MAXN||is_noise(pi,img)
 					||slope_test(pi,img,k1)||sides_split_test(pi,p3,k1,img)||edge_test(p1,p2,p3,a,b,r)) continue;
 					else {
-						printf("The equation of circles:(x%c%d)^2+(y%c%d)^2=%d^2",a>=0?'+':'-',a,b>=0?'+':'-',b,r);
+						printf("The equation of circles:(x%c%d)^2+(y%c%d)^2=%d^2",(a>=0?'+':'-'),a,(b>=0?'+':'-'),b,r);
 						exit(EXIT_SUCCESS);
 					}	
 				}
@@ -231,7 +246,7 @@ int main()
 {
 	//create a blank image(1 represent pixel, 0 present nothing)
 	int* img = pre_process();
-	print_matrix<int>(img);
+	//print_matrix<int>(img);
 	single_circle_detect(img);
 	return 0;
 }
