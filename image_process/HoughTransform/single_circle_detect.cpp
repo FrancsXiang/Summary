@@ -1,7 +1,8 @@
 /*
 	author:Franc_zi
 	timestamp:2020_04_04
-	referred_paper:广义hough变换_黎自强(链接: https://pan.baidu.com/s/1aAfC9KLVNK4mknqWws6lng 提取码: 39n4)	
+	referred_paper:广义hough变换_黎自强(链接: https://pan.baidu.com/s/1aAfC9KLVNK4mknqWws6lng 提取码: 39n4)
+	There are some bugs need to be fixed,may be you can help me!!!
 */
 #include <iostream>
 #include <vector>
