@@ -98,7 +98,7 @@ bool is_noise(PII p,int* img) {
 	bool flag = true;
 	int acc1,acc2;
 	int off_set[4][8] = {{2,3,2,3,1,4,1,4},{1,2,3,4,0,1,0,1},
-						{2,3,1,2,1,4,0,3},{1,2,1,2,0,3,0,3}};
+			    {2,3,1,2,1,4,0,3},{1,2,1,2,0,3,0,3}};
 	int dx[5] = {-2,-1,0,1,2};
 	int dy[5] = {-2,-1,0,1,2};
 	for(int i=1;i<4;i++) {
@@ -237,14 +237,14 @@ void single_circle_detect(int* img) {
 					if(pi.first<0||pi.first>=MAXN||is_noise(pi,img)
 					||slope_test(pi,img,k1)||sides_split_test(pi,p3,k1,img)||edge_test(p1,p2,p3,a,b,r)) continue;
 					else {
-						printf("The equation of circles:(x%c%d)^2+(y%c%d)^2=%d^2",(a>=0?'+':'-'),a,(b>=0?'+':'-'),b,r);
+						printf("The equation of circle:(x%c%d)^2+(y%c%d)^2=%d^2",(a>=0?'+':'-'),a,(b>=0?'+':'-'),b,r);
 						exit(EXIT_SUCCESS);
 					}	
 				}
 			}
 		}
 	}
-	cout << "There is no circles" << endl;
+	cout << "There is no circle" << endl;
 }
 
 int main()
