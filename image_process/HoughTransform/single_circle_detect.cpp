@@ -99,7 +99,7 @@ bool is_noise(PII p,int* img) {
 	bool flag = true;
 	int acc1,acc2;
 	int off_set[4][8] = {{2,3,2,3,1,4,1,4},{1,2,3,4,0,1,0,1},
-			    {2,3,1,2,1,4,0,3},{1,2,1,2,0,3,0,3}};
+						{2,3,1,2,1,4,0,3},{1,2,1,2,0,3,0,3}};
 	int dx[5] = {-2,-1,0,1,2};
 	int dy[5] = {-2,-1,0,1,2};
 	for(int i=1;i<4;i++) {
@@ -209,7 +209,7 @@ bool edge_test(PII p1,PII p2,PII p3,double& a,double& b,double& r) {
 	for(int i=0;i<v.size();i++) {
 		auto p = v[i];
 		dist = power(p.first-b) + power(p.second-a);
-		if(dist<low||dist>high||fabs(sqrt(dist)-r)>=te) continue;
+		if(dist<low*low||dist>high*high||fabs(sqrt(dist)-r)>=te) continue;
 		mc++;
 	}
 	mt = 2 * M_PI * r * lbd;
@@ -227,16 +227,15 @@ void single_circle_detect(int* img) {
 			if(power(v[i].first-v[j].first)+power(v[i].second-v[j].second)>td
 			|| v[i].second == v[j].second) continue;
 			PII p3{(p1.first+p2.first)/2,(p1.second+p2.second)/2};
-			k1 = (v[i].first-v[j].first) / (v[i].second - v[j].second);
+			k1 = (v[i].first-v[j].first) / (v[i].second-v[j].second);
 			k2 = - 1.0 / k1;
-			for(int z=0;z<v.size();z++) {
+			for(int z=0;z<MAXN;z++) {
 				cnt++;
 				cout << a << " " << b << " " << r << " " << cnt << endl;
-				if(v[z] != p3) {
-					pi.second = v[z].second;
-					pi.first = k2 * (p3.second-v[z].second) + p3.first;
-					if(pi.first<0||pi.first>=MAXN||is_noise(pi,img)
-					||slope_test(pi,img,k1)||sides_split_test(pi,p3,k1,img)||edge_test(p1,p2,p3,a,b,r)) continue;
+				pi.second = z;
+				pi.first = k2 * (pi.second-p3.second) + p3.first;
+				if(pi.first>=0 && pi.first < MAXN && img[pi.first*MAXN+pi.second] && pi != p3) {
+					if(is_noise(pi,img)||slope_test(pi,img,k1)||sides_split_test(pi,p3,k1,img)||edge_test(p1,p2,p3,a,b,r)) continue;
 					else {
 						printf("The equation of circle:(x%c%d)^2+(y%c%d)^2=%d^2",(a>=0?'+':'-'),a,(b>=0?'+':'-'),b,r);
 						exit(EXIT_SUCCESS);
