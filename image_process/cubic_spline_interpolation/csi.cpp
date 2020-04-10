@@ -1,3 +1,8 @@
+/*
+	author:Franc_zi
+	time_stamp:2020_04_10
+	refer_docs:https://blog.csdn.net/wangjoe11/article/details/78019578
+*/
 #include <iostream>
 #include <cstdio>
 using namespace std;
