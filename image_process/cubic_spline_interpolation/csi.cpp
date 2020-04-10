@@ -2,6 +2,7 @@
 	author:Franc_zi
 	time_stamp:2020_04_10
 	referred_docs:https://blog.csdn.net/wangjoe11/article/details/78019578
+	There may be some bugs,if you have ques,please contact me with qq(907935941)
 */
 #include <iostream>
 #include <cstdio>
