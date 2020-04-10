@@ -23,7 +23,7 @@ with open('./data.txt', 'r') as file:
         b = res[i][3]
         c = res[i][4]
         d = res[i][5]
-        cond = [1 if (i >= start and i <= end) else 0 for i in x]
+        cond = [1 if (i >= start and i < end) else 0 for i in x]
         y += cond * cubic_fc(start, a, b, c, d, x)
         y_ = [np.sin(x[i]) for i in range(len(x))]
     plt.plot(x, y, "x-",label="prediction")
