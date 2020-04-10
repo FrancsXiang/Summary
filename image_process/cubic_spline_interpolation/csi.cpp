@@ -39,12 +39,12 @@ void THA(double* m,double* h,double* y,int n,bool natural=true) {
 	}
 	g[1] = c[1] / b[1];
 	d[1] = r[1] / b[1];
-	for(int i=2;i<=n;i++) {
-		if(i<n) g[i] = c[i] / (b[i] - g[i-1] * a[i]);
+	for(int i=2;i<=n+1;i++) {
+		if(i<=n) g[i] = c[i] / (b[i] - g[i-1] * a[i]);
 		d[i] = (r[i] - d[i-1] * a[i]) / (b[i] - g[i-1] * a[i]);
 	}
-	m[n] = g[n+1];
-	for(int i=n-1;i>=0;i--) m[i] = d[i+1] - g[i+1] * m[i+1];
+	m[n] = d[n+1];
+	for(int i=n-1;i>=0;i--) m[i] = d[i+1] - g[i+1] * m[i+2];
 }
 
 int main()
@@ -53,7 +53,7 @@ int main()
 	double a,b,c,d;
 	cout << "please enter the total number of shape points:" << endl;
 	cin >> n;
-	cout << "please enter the coordinates respectively:(i.e.(x,y))" << endl;
+	cout << "please enter the coordinates respectively by ascending sort of x:" << endl;
 	double* x = getContainer<double>(n);
 	double* y = getContainer<double>(n);
 	for(int i=0;i<n;i++) cin >> x[i] >> y[i];
@@ -64,10 +64,10 @@ int main()
 	THA(m,h,y,n);
 	for(int i=0;i<n;i++) {
 		a = y[i];
-		b = (y[i+1]-y[i])/h[i] - h[i]*m[i]/2 - h[i]*(m[i+1]-m[i])/6;
+		b = (y[i+1]-y[i])/h[i] - h[i]/2*m[i] - h[i]/6*(m[i+1]-m[i]);
 		c = m[i] / 2;
 		d = (m[i+1]-m[i]) / (6*h[i]);
-		printf("The %d interval params:(%.2f,%.2f,%.2f,%.2f)\n",i+1,a,b,c,d);
+		printf("The %d interval params:\na:%.2f\nb:%.2f\nc:%.2f\nd:%.2f)\n\n",i+1,a,b,c,d);
 	}
 	return 0;
 }
