@@ -11,11 +11,9 @@ with open('./data.txt', 'r') as file:
     size = []
     x = np.linspace(start, end, 1000)
     x = list(x)
-    # for i in range(len(res)):
-    #     x.append(res[i][0])
-    # x.append(res[-1][1])
     x.sort()
     y = [0 for i in range(len(x))]
+    y_ = [np.sin(x[i]) for i in range(len(x))]
     for i in range(len(res)):
         start = res[i][0]
         end = res[i][1]
@@ -25,7 +23,6 @@ with open('./data.txt', 'r') as file:
         d = res[i][5]
         cond = [1 if (i >= start and i < end) else 0 for i in x]
         y += cond * cubic_fc(start, a, b, c, d, x)
-        y_ = [np.sin(x[i]) for i in range(len(x))]
     plt.plot(x, y, "x-",label="prediction")
     plt.plot(x, y_, "+-",label="ground_truth")
     plt.legend()
