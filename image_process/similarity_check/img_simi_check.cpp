@@ -1,5 +1,8 @@
 /*
-This is a beta edition without test.you could input the initial data.
+author:Franc_zi
+time_stamp:2020_04_21
+description:This is a beta edition without test.you could modify and input the initial data.
+refferd_docs:图形相似原理_谭建荣
 */
 #include <iostream>
 #include <vector>
