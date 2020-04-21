@@ -108,7 +108,7 @@ double cal_similarity(int code, Img& item1, Img& item2) {
 
 int main()
 {
-	//scan the images and format to Img for acquiring the seq;
+	//scan the images and format to Img for acquiring the seq manually;
 	vector<Img> seq;
 	unordered_map<int, vector<Img>> list;
 	classify_img(seq, list);
