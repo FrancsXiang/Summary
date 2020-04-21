@@ -1,7 +1,7 @@
 /*
 author:Franc_zi
 time_stamp:2020_04_21
-description:This is a beta version without test.you could modify and input the initial data.
+description:This is a beta version without test.You could modify and input the initial data.
 refferd_docs:图形相似原理_谭建荣
 */
 #include <iostream>
@@ -81,7 +81,7 @@ double scale_check(Img& left, Img& right) {
 	auto seq_l = left.seq;
 	auto seq_r = right.seq;
 	double total = 0;
-	unordered_set<int> s1 = { 2,3 };
+	static unordered_set<int> s1 = { 2,3 };
 	for (int i = 0; i < seq_l.size(); i++) {
 		auto l_scale = seq_l[i].scale; auto r_scale = seq_r[i].scale;
 		if (l_scale == r_scale) total += 1;
