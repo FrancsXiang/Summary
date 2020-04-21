@@ -1,7 +1,7 @@
 /*
 author:Franc_zi
 time_stamp:2020_04_21
-description:This is a beta edition without test.you could modify and input the initial data.
+description:This is a beta version without test.you could modify and input the initial data.
 refferd_docs:图形相似原理_谭建荣
 */
 #include <iostream>
@@ -51,9 +51,9 @@ double linked_state(Img& left, Img& right) {
 	double total = 0;
 	for (int i = 0; i < size; i++) {
 		l_judge = r_judge = false;
-		auto l_id_now = seq_l[i].id; auto l_id_next = seq_l[(i + 1) % size].id;
-		auto r_id_now = seq_r[i].id; auto r_id_next = seq_r[(i + 1) % size].id;
-		if (l_id_now == r_id_now && l_id_next == r_id_next) total += 1;
+		auto l_id_next = seq_l[(i + 1) % size].id;
+		auto r_id_next = seq_r[(i + 1) % size].id;
+		if (l_id_next == r_id_next) total += 1;
 	}
 	return total;
 }
